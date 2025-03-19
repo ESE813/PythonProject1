@@ -27,4 +27,4 @@ def get_date(date_str: str) -> str:
     year_str = date_str[:4]
     month_str = date_str[5:7]
     day_str = date_str[8:10]
-    return f'{day_str}.{month_str}.{year_str}'
+    return f"{day_str}.{month_str}.{year_str}"
