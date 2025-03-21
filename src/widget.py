@@ -1,10 +1,12 @@
-from src.masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_account
+from src.masks import get_mask_card_number
+
 
 def mask_account_card(num_for_mask: str) -> str:
-    """Функция маскирует номер карты или счета """
+    """Функция маскирует номер карты или счета"""
     num_for_mask_split = num_for_mask.split()
-    if "Cчет" in num_for_mask:
-        return f"Cчет {get_mask_account} {num_for_mask_split}"
+    if "Счет" in num_for_mask_split:
+        return f"Cчет {get_mask_account(num_for_mask_split[1])}"
     else:
         card_num = []
         card_name = []
@@ -13,8 +15,8 @@ def mask_account_card(num_for_mask: str) -> str:
                 card_num.append(i)
             if i.isalpha():
                 card_name.append(i)
-        str_card_num = ' '.join(card_num)
-        str_card_name = ' '.join(card_name)
+        str_card_num = " ".join(card_num)
+        str_card_name = " ".join(card_name)
         return f"{str_card_name} {get_mask_card_number(str_card_num)}"
 
 
@@ -24,6 +26,3 @@ def get_date(date_str: str) -> str:
     month_str = date_str[5:7]
     day_str = date_str[8:10]
     return f"{day_str}.{month_str}.{year_str}"
-
-
-

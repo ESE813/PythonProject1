@@ -11,7 +11,7 @@ def get_mask_card_number(card_number: Union[str]) -> Union[str]:
         return "Неправильно введен номер карты!"
 
 
-def get_mask_account(account_number: str) -> str:
+def get_mask_account(account_number: Union[str]) -> Union[str]:
     """Функция принимает на вход номер счета в виде числа и
     возвращает маску номера счета."""
     if account_number.isdigit() and len(account_number) == 20:
