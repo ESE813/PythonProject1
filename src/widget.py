@@ -1,28 +1,38 @@
-from src.masks import get_mask_account
-from src.masks import get_mask_card_number
+from datetime import datetime
+from src import masks
 
 
 def mask_account_card(num_for_mask: str) -> str:
-    """Функция маскирует номер карты или счета"""
-    num_for_mask_split = num_for_mask.split()
-    if "Счет" in num_for_mask_split:
-        return f"Cчет {get_mask_account(num_for_mask_split[1])}"
-    else:
-        card_num = []
-        card_name = []
-        for i in num_for_mask_split:
-            if i.isdigit():
-                card_num.append(i)
-            if i.isalpha():
-                card_name.append(i)
-        str_card_num = " ".join(card_num)
-        str_card_name = " ".join(card_name)
-        return f"{str_card_name} {get_mask_card_number(str_card_num)}"
+    """Функция маскирует номер карты или счета в зависимости от типа"""
+    num_parts = num_for_mask.split()
+    card_type = " ".join(num_parts[:-1])
+    card_number_str = num_parts[-1]
+
+    try:
+        card_number_int = int(card_number_str)
+        if "Счет" in card_type:
+            masked_number = masks.get_mask_account(card_number_int)
+        elif len(card_number_str) == 16:
+            masked_number = masks.get_mask_card_number(card_number_int)
+        else:
+            raise  ValueError("Неверный формат номера счета или карты")
+        return f"{card_type} {masked_number}"
+    except ValueError:
+        return f"Ошибка: Неверный формат номера счета или карты"
+
+
 
 
 def get_date(date_str: str) -> str:
     """Функция обрабатывает дату в формате ДД-ММ-ГГ"""
-    year_str = date_str[:4]
-    month_str = date_str[5:7]
-    day_str = date_str[8:10]
-    return f"{day_str}.{month_str}.{year_str}"
+    date_str = date_str.strip()
+
+    if not date_str:
+        return ""
+
+    try:
+        date_object = datetime.fromisoformat(date_str[:-7])  # Убираем последние 7 символов
+        return date_object.strftime("%d.%m.%Y")
+    except ValueError:
+        return ""
+
