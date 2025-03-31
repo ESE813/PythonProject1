@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from src import masks
 
 
@@ -15,12 +16,10 @@ def mask_account_card(num_for_mask: str) -> str:
         elif len(card_number_str) == 16:
             masked_number = masks.get_mask_card_number(card_number_int)
         else:
-            raise  ValueError("Неверный формат номера счета или карты")
+            raise ValueError("Неверный формат номера счета или карты")
         return f"{card_type} {masked_number}"
     except ValueError:
         return f"Ошибка: Неверный формат номера счета или карты"
-
-
 
 
 def get_date(date_str: str) -> str:
@@ -35,4 +34,3 @@ def get_date(date_str: str) -> str:
         return date_object.strftime("%d.%m.%Y")
     except ValueError:
         return ""
-
