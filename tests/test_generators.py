@@ -32,7 +32,8 @@ def transactions():
             "description": "Перевод со счета на счет",
             "from": "Счет 44812258784861134719",
             "to": "Счет 74489636417521191160",
-        }]
+        },
+    ]
 
 
 def test_filter_by_currency(transactions):
@@ -52,26 +53,40 @@ def test_transaction_descriptions(transactions):
     descriptions = list(transaction_descriptions(transactions))
     assert len(descriptions) == 3
 
-    expected_descriptions = [
-        "Перевод организации",
-        "Перевод со счета на счет",
-        "Перевод со счета на счет"
-    ]
+    expected_descriptions = ["Перевод организации", "Перевод со счета на счет", "Перевод со счета на счет"]
     assert descriptions == expected_descriptions
 
     empty_descriptions = list(transaction_descriptions([]))
     assert len(empty_descriptions) == 0
 
 
-@pytest.mark.parametrize("start, end, expected", [
-    (1, 5, ["0000 0000 0000 0001", "0000 0000 0000 0002",
-            "0000 0000 0000 0003", "0000 0000 0000 0004",
-            "0000 0000 0000 0005"]),
-    (3, 7, ["0000 0000 0000 0003", "0000 0000 0000 0004",
-            "0000 0000 0000 0005", "0000 0000 0000 0006",
-            "0000 0000 0000 0007"])
-])
+@pytest.mark.parametrize(
+    "start, end, expected",
+    [
+        (
+            1,
+            5,
+            [
+                "0000 0000 0000 0001",
+                "0000 0000 0000 0002",
+                "0000 0000 0000 0003",
+                "0000 0000 0000 0004",
+                "0000 0000 0000 0005",
+            ],
+        ),
+        (
+            3,
+            7,
+            [
+                "0000 0000 0000 0003",
+                "0000 0000 0000 0004",
+                "0000 0000 0000 0005",
+                "0000 0000 0000 0006",
+                "0000 0000 0000 0007",
+            ],
+        ),
+    ],
+)
 def test_card_number_generator(start, end, expected):
     result = list(card_number_generator(start, end))
     assert result == expected
-
