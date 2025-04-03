@@ -1,6 +1,6 @@
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 
 @pytest.fixture
@@ -62,4 +62,16 @@ def test_transaction_descriptions(transactions):
     empty_descriptions = list(transaction_descriptions([]))
     assert len(empty_descriptions) == 0
 
+
+@pytest.mark.parametrize("start, end, expected", [
+    (1, 5, ["0000 0000 0000 0001", "0000 0000 0000 0002",
+            "0000 0000 0000 0003", "0000 0000 0000 0004",
+            "0000 0000 0000 0005"]),
+    (3, 7, ["0000 0000 0000 0003", "0000 0000 0000 0004",
+            "0000 0000 0000 0005", "0000 0000 0000 0006",
+            "0000 0000 0000 0007"])
+])
+def test_card_number_generator(start, end, expected):
+    result = list(card_number_generator(start, end))
+    assert result == expected
 
