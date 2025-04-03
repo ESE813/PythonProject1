@@ -48,3 +48,18 @@ def test_filter_by_currency(transactions):
     assert len(empty_transactions) == 0
 
 
+def test_transaction_descriptions(transactions):
+    descriptions = list(transaction_descriptions(transactions))
+    assert len(descriptions) == 3
+
+    expected_descriptions = [
+        "Перевод организации",
+        "Перевод со счета на счет",
+        "Перевод со счета на счет"
+    ]
+    assert descriptions == expected_descriptions
+
+    empty_descriptions = list(transaction_descriptions([]))
+    assert len(empty_descriptions) == 0
+
+
