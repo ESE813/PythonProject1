@@ -1,4 +1,5 @@
 import os
+
 import requests
 from dotenv import load_dotenv
 
@@ -14,14 +15,8 @@ def convert_to_rub(amount, currency):
         return float(amount)
 
     url = f"https://apilayer.com/exchangerates_data-api"
-    headers = {
-        "apikey": API_TOKEN
-    }
-    params = {
-        "from": currency,
-        "to": "RUB",
-        "amount": amount
-    }
+    headers = {"apikey": API_TOKEN}
+    params = {"from": currency, "to": "RUB", "amount": amount}
 
     response = requests.get(url, headers=headers, params=params)
     if response.status_code != 200:

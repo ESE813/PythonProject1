@@ -1,6 +1,9 @@
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock
+from unittest.mock import patch
+
 from src.external_api import convert_to_rub
+
 
 class TestConvertToRub(unittest.TestCase):
 
