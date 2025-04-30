@@ -36,4 +36,4 @@ def get_transaction_amount(transaction):
     if amount is None or currency is None:
         raise ValueError("Неверная транзакция: отсутствует сумма или валюта")
 
-    return convert_to_rub(float(amount), currency)
+    return convert_to_rub(transaction)
